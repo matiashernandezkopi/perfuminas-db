@@ -26,7 +26,6 @@ export function VentasTable() {
                 <TableCaption>A list of your products.</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="w-[100px]">ID</TableHead>
                         <TableHead>Fecha</TableHead>
                         <TableHead className="text-right">Cantidad</TableHead>
                         <TableHead className="text-right">Productos</TableHead>
@@ -35,9 +34,8 @@ export function VentasTable() {
                 <TableBody>
                     {ventas.map((venta) => (
                         <TableRow key={venta.id}>
-                            <TableCell className="font-medium">{venta.id}</TableCell>
                             <TableCell>{venta.fecha}</TableCell>
-                            <TableCell className="text-right">{venta.cantidad}</TableCell>
+                            <TableCell className="text-right">{venta.cantidad.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</TableCell>
                             <TableCell className="text-right">
                             {venta.productos.split('|').map((producto,index) => (
                                 <div key={index}>{producto}</div>
