@@ -63,7 +63,7 @@ export function ProductosTable() {
     };
 
     return (
-        <div className="flex flex-col h-full w-full space-y-4">
+        <div className="flex flex-col h-full w-full space-y-6">
             {/* Buscador */}
             <div className="flex justify-between items-center">
                 <input
@@ -71,19 +71,21 @@ export function ProductosTable() {
                     placeholder="Buscar por tipo o nombre..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border p-2 rounded w-full max-w-sm"
+                    className="w-full max-w-sm px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
             </div>
-
+    
             {/* Tabla de productos */}
             <Table>
-                <TableCaption>A list of your products.</TableCaption>
+                <TableCaption className="text-gray-600 text-sm">
+                    Una lista de tus productos.
+                </TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Tipo</TableHead>
-                        <TableHead>Nombre</TableHead>
+                        <TableHead className="text-left">Tipo</TableHead>
+                        <TableHead className="text-left">Nombre</TableHead>
                         <TableHead className="text-right">Precio</TableHead>
-                        <TableHead>Cantidad</TableHead>
+                        <TableHead className="text-left">Cantidad</TableHead>
                         <TableHead className="text-right">Acciones</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -96,20 +98,24 @@ export function ProductosTable() {
                                 {producto.precio.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
                             </TableCell>
                             <TableCell
-                                className="cursor-pointer underline"
+                                className="cursor-pointer underline text-blue-500 hover:text-blue-700"
                                 onClick={() => handleCantidadClick(producto)}
                             >
                                 {producto.cantidad ?? 'N/A'}
                             </TableCell>
                             <TableCell className="text-right">
                                 <button
-                                   onClick={async () => {
-                                        if (window.confirm(`¿Estás seguro de eliminar el producto "${producto.nombre}"?`)) {
+                                    onClick={async () => {
+                                        if (
+                                            window.confirm(
+                                                `¿Estás seguro de eliminar el producto "${producto.nombre}"?`
+                                            )
+                                        ) {
                                             await deleteProductoById(producto.id);
                                             fetchProducts();
                                         }
                                     }}
-                                    className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                    className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
                                 >
                                     Eliminar
                                 </button>
@@ -119,45 +125,48 @@ export function ProductosTable() {
                 </TableBody>
                 <TableFooter>
                     <TableRow>
-                        <TableCell colSpan={4} className="text-right">Total de unidades</TableCell>
+                        <TableCell colSpan={4} className="text-right font-semibold">
+                            Total de unidades
+                        </TableCell>
                         <TableCell className="text-right">
                             {paginatedProductos.reduce((acc, producto) => acc + (producto.cantidad ?? 0), 0)}
                         </TableCell>
                     </TableRow>
                 </TableFooter>
             </Table>
-
+    
             {/* Controles de paginación */}
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-between items-center">
                 <button
                     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                     disabled={currentPage === 1}
-                    className="p-2 bg-gray-300 rounded disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Anterior
                 </button>
-                <span>
+                <span className="text-sm text-gray-600">
                     Página {currentPage} de {totalPages}
                 </span>
                 <button
                     onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                     disabled={currentPage === totalPages}
-                    className="p-2 bg-gray-300 rounded disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Siguiente
                 </button>
             </div>
-
+    
             {/* Modal para editar cantidad */}
             {modalOpen && selectedProducto && (
-               <ModalCantidadProductos
-               setModalOpen={setModalOpen}
-               setNewCantidad={setNewCantidad}
-               selectedProducto={selectedProducto}
-               newCantidad={newCantidad}
-               handleSave={handleSave}
-           />
+                <ModalCantidadProductos
+                    setModalOpen={setModalOpen}
+                    setNewCantidad={setNewCantidad}
+                    selectedProducto={selectedProducto}
+                    newCantidad={newCantidad}
+                    handleSave={handleSave}
+                />
             )}
         </div>
     );
+    
 }

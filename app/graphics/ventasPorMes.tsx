@@ -92,7 +92,7 @@ export function VentasPorMes() {
       <CardContent>
         <Accordion type="single" collapsible>
           <AccordionItem value="year">
-            <AccordionTrigger>Seleccionar Año</AccordionTrigger>
+            <AccordionTrigger>{selectedYear}</AccordionTrigger>
             <AccordionContent>
               <ul className="space-y-2">
                 {years.map((year) => (

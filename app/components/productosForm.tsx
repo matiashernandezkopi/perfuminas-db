@@ -121,11 +121,17 @@ export function ProductosForm() {
     const total = productosSeleccionados.reduce((sum, prod) => sum + (prod.precio * prod.cantidadComprada), 0);
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-6 p-6 bg-white rounded shadow-lg">
             <div>
-                <h2>Elige un Tipo de Producto</h2>
-                <select onChange={(e) => handleTipoSeleccionado(e.target.value)} value={tipoSeleccionado || ""}>
-                    <option value="" disabled>Selecciona un tipo</option>
+                <h2 className="text-lg font-bold">Elige un Tipo de Producto</h2>
+                <select
+                    onChange={(e) => handleTipoSeleccionado(e.target.value)}
+                    value={tipoSeleccionado || ""}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+                >
+                    <option value="" disabled>
+                        Selecciona un tipo
+                    </option>
                     {tipos.map((tipo) => (
                         <option key={tipo} value={tipo}>
                             {tipo}
@@ -133,12 +139,18 @@ export function ProductosForm() {
                     ))}
                 </select>
             </div>
-
+    
             {tipoSeleccionado && (
                 <div>
-                    <h2>Elige un Producto</h2>
-                    <select onChange={(e) => handleProductoSeleccionado(e.target.value)} value={productoSeleccionado?.id || ""}>
-                        <option value="" disabled>Selecciona un producto</option>
+                    <h2 className="text-lg font-bold">Elige un Producto</h2>
+                    <select
+                        onChange={(e) => handleProductoSeleccionado(e.target.value)}
+                        value={productoSeleccionado?.id || ""}
+                        className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="" disabled>
+                            Selecciona un producto
+                        </option>
                         {productosFiltrados.map((producto) => (
                             <option key={producto.id} value={producto.id}>
                                 {producto.nombre}
@@ -147,46 +159,59 @@ export function ProductosForm() {
                     </select>
                 </div>
             )}
-
+    
             {productoSeleccionado && (
                 <div>
-                    <h2>Cantidad</h2>
+                    <h2 className="text-lg font-bold">Cantidad</h2>
                     <input
                         type="number"
                         min="1"
                         max={productoSeleccionado.cantidad}
                         value={cantidad}
                         onChange={(e) => handleCantidadChange(parseInt(e.target.value))}
+                        className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
             )}
-
+    
             {productoSeleccionado && (
-                <button onClick={agregarProducto} className="btn btn-primary">
+                <button
+                    onClick={agregarProducto}
+                    className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
                     Agregar a la Compra
                 </button>
             )}
-
+    
             <div>
-                <h3>Productos Seleccionados</h3>
-                <ul>
+                <h3 className="text-lg font-bold">Productos Seleccionados</h3>
+                <ul className="space-y-2">
                     {productosSeleccionados.map((prod) => (
-                        <li key={prod.id}>
-                            {prod.nombre} - {prod.cantidadComprada} unidades - ${prod.precio * prod.cantidadComprada}
-                            <button onClick={() => quitarProducto(prod.id)} className="ml-2 text-red-600">
+                        <li key={prod.id} className="flex justify-between items-center border-b pb-2">
+                            <span>
+                                {prod.nombre} - {prod.cantidadComprada} unidades - $
+                                {prod.precio * prod.cantidadComprada}
+                            </span>
+                            <button
+                                onClick={() => quitarProducto(prod.id)}
+                                className="text-red-600 hover:text-red-800"
+                            >
                                 Quitar
                             </button>
                         </li>
                     ))}
                 </ul>
-                <h3>Total a Pagar: ${total.toFixed(2)}</h3>
+                <h3 className="text-lg font-bold mt-4">Total a Pagar: ${total.toFixed(2)}</h3>
             </div>
-
+    
             {productosSeleccionados.length > 0 && (
-                <button onClick={handleComprar} className="btn btn-success">
+                <button
+                    onClick={handleComprar}
+                    className="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                >
                     Comprar Todo
                 </button>
             )}
         </div>
     );
-}
+}    

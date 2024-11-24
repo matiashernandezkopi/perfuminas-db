@@ -74,13 +74,11 @@ export function AddProductoForm() {
     };
 
     return (
-        <div className="space-y-4 p-6 bg-gray-100 rounded-lg shadow-lg max-w-md mx-auto">
-            <h2 className="text-2xl font-semibold text-gray-800">Agregar Nuevo Producto</h2>
-            
+        <div className="space-y-6 p-6 bg-white rounded shadow-lg max-w-lg mx-auto">
+            <h2 className="text-xl font-bold text-gray-800">Agregar Nuevo Producto</h2>
+    
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Producto</label>
-                
-                {/* Selector para tipos existentes o nuevo tipo */}
+                <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Producto</label>
                 <select
                     onChange={(e) => {
                         const value = e.target.value;
@@ -93,9 +91,11 @@ export function AddProductoForm() {
                         }
                     }}
                     value={esNuevoTipo ? "nuevo" : tipoSeleccionado || ""}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
-                    <option value="" disabled>Selecciona un tipo existente o crea uno nuevo</option>
+                    <option value="" disabled>
+                        Selecciona un tipo existente o crea uno nuevo
+                    </option>
                     {tiposExistentes.map((tipo) => (
                         <option key={tipo} value={tipo}>
                             {tipo}
@@ -103,60 +103,60 @@ export function AddProductoForm() {
                     ))}
                     <option value="nuevo">Crear nuevo tipo</option>
                 </select>
-
-                {/* Input para el nuevo tipo si se selecciona "Crear nuevo tipo" */}
+    
                 {esNuevoTipo && (
                     <input
                         type="text"
                         value={nuevoTipo}
                         onChange={(e) => setNuevoTipo(e.target.value)}
                         placeholder="Escribe el nuevo tipo de producto"
-                        className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full mt-3 p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     />
                 )}
             </div>
-
+    
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
                 <input
                     type="text"
                     value={nombre}
                     onChange={(e) => setNombre(e.target.value)}
                     placeholder="Nombre del producto"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
             </div>
-
+    
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Precio</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Precio</label>
                 <input
                     type="number"
                     value={precio}
                     onChange={(e) => setPrecio(parseFloat(e.target.value))}
                     min="0"
                     placeholder="Precio del producto"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
             </div>
-
+    
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Cantidad</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Cantidad</label>
                 <input
                     type="number"
                     value={cantidad}
                     onChange={(e) => setCantidad(parseInt(e.target.value))}
                     min="0"
                     placeholder="Cantidad en inventario"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
             </div>
-
-            <button 
-                onClick={handleAgregarProducto} 
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-md mt-4 font-semibold hover:bg-blue-600 transition"
+    
+            <button
+                onClick={handleAgregarProducto}
+                className="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition"
             >
                 Agregar Producto
             </button>
         </div>
     );
+    
 }

@@ -59,12 +59,15 @@ export function VentasTable() {
     );
 
     return (
-        <div className="flex flex-col h-full w-full">
-            <Table>
-                <TableCaption>A list of your products.</TableCaption>
-                <TableHeader>
+        <div className="flex flex-col h-full w-full overflow-auto p-4 bg-gray-50 dark:bg-gray-900">
+            {/* Tabla de ventas */}
+            <Table className="w-full border border-gray-200 dark:border-gray-700">
+                <TableCaption className="text-sm text-gray-500 dark:text-gray-400">
+                    Lista de productos vendidos.
+                </TableCaption>
+                <TableHeader className="bg-gray-100 dark:bg-gray-800">
                     <TableRow>
-                        <TableHead>Fecha</TableHead>
+                        <TableHead className="text-left">Fecha</TableHead>
                         <TableHead className="text-right">Cantidad</TableHead>
                         <TableHead className="text-right">Productos</TableHead>
                         <TableHead className="text-right">Acciones</TableHead>
@@ -72,18 +75,20 @@ export function VentasTable() {
                 </TableHeader>
                 <TableBody>
                     {paginatedVentas.map((venta) => (
-                        <TableRow key={venta.id}>
-                            <TableCell>{venta.fecha}</TableCell>
-                            <TableCell className="text-right">{venta.cantidad.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</TableCell>
-                            <TableCell className="text-right">
+                        <TableRow key={venta.id} className="hover:bg-gray-100 dark:hover:bg-gray-800">
+                            <TableCell className="py-2 px-4">{venta.fecha}</TableCell>
+                            <TableCell className="text-right py-2 px-4">
+                                {venta.cantidad.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                            </TableCell>
+                            <TableCell className="text-right py-2 px-4">
                                 {venta.productos.split('|').map((producto, index) => (
                                     <div key={index}>{producto}</div>
                                 ))}
                             </TableCell>
-                            <TableCell className="text-right">
+                            <TableCell className="text-right py-2 px-4">
                                 <button
                                     onClick={() => handleDelete(venta.id)}
-                                    className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                    className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
                                 >
                                     Eliminar
                                 </button>
@@ -91,34 +96,41 @@ export function VentasTable() {
                         </TableRow>
                     ))}
                 </TableBody>
-                <TableFooter>
+                <TableFooter className="bg-gray-100 dark:bg-gray-800">
                     <TableRow>
-                        <TableCell colSpan={3} className="text-right">Total vendido</TableCell>
-                        <TableCell className="text-right">
-                            {ventas.reduce((acc, producto) => acc + (producto.cantidad ?? 0), 0).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                        <TableCell colSpan={3} className="text-right font-semibold py-2 px-4">
+                            Total vendido
+                        </TableCell>
+                        <TableCell className="text-right font-semibold py-2 px-4">
+                            {ventas
+                                .reduce((acc, producto) => acc + (producto.cantidad ?? 0), 0)
+                                .toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
                         </TableCell>
                     </TableRow>
                 </TableFooter>
             </Table>
-            <div className="flex justify-between mt-4">
+    
+            {/* Paginación */}
+            <div className="flex justify-between items-center mt-6">
                 <button
                     onClick={() => handlePageChange('prev')}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                 >
                     Anterior
                 </button>
-                <span>
+                <span className="text-gray-700 dark:text-gray-300">
                     Página {currentPage} de {totalPages}
                 </span>
                 <button
                     onClick={() => handlePageChange('next')}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                 >
                     Siguiente
                 </button>
             </div>
         </div>
     );
+    
 }

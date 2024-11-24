@@ -26,48 +26,74 @@ export function VentasForm() {
     };
 
     return (
-        <div className="space-y-4 p-6 bg-gray-100 rounded-lg shadow-lg max-w-md mx-auto">
-            <h2 className="text-2xl font-semibold text-gray-800">Agregar Nueva Venta</h2>
-
+        <div className="space-y-6 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md max-w-md mx-auto">
+            {/* Título */}
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+                Agregar Nueva Venta
+            </h2>
+    
+            {/* Campo de Fecha */}
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
+                <label
+                    htmlFor="fecha"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >
+                    Fecha
+                </label>
                 <input
+                    id="fecha"
                     type="date"
                     value={fecha}
                     onChange={(e) => setFecha(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                 />
             </div>
-
+    
+            {/* Campo de Productos */}
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Productos</label>
+                <label
+                    htmlFor="productos"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >
+                    Productos
+                </label>
                 <input
+                    id="productos"
                     type="text"
                     value={productos}
                     onChange={(e) => setProductos(e.target.value)}
                     placeholder="Nombre del producto"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                 />
             </div>
-
+    
+            {/* Campo de Cantidad */}
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Cantidad</label>
+                <label
+                    htmlFor="cantidad"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >
+                    Cantidad
+                </label>
                 <input
+                    id="cantidad"
                     type="number"
                     value={cantidad}
                     onChange={(e) => setCantidad(parseInt(e.target.value))}
                     min="0"
                     placeholder="Cantidad vendida"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                 />
             </div>
-
-            <button 
-                onClick={handleAgregarVenta} 
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded-md mt-4 font-semibold hover:bg-blue-600 transition"
+    
+            {/* Botón para agregar venta */}
+            <button
+                onClick={handleAgregarVenta}
+                className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition dark:bg-blue-700 dark:hover:bg-blue-600"
             >
                 Agregar Venta
             </button>
         </div>
     );
+    
 }
